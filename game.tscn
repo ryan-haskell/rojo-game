@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://cyapewg1syv25"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_5r8al"]
+data = PackedVector3Array(-25, 0.5, 50, 25, 0.5, 50, -25, -0.5, 50, 25, 0.5, 50, 25, -0.5, 50, -25, -0.5, 50, 25, 0.5, -50, -25, 0.5, -50, 25, -0.5, -50, -25, 0.5, -50, -25, -0.5, -50, 25, -0.5, -50, 25, 0.5, 50, 25, 0.5, -50, 25, -0.5, 50, 25, 0.5, -50, 25, -0.5, -50, 25, -0.5, 50, -25, 0.5, -50, -25, 0.5, 50, -25, -0.5, -50, -25, 0.5, 50, -25, -0.5, 50, -25, -0.5, -50, 25, 0.5, 50, -25, 0.5, 50, 25, 0.5, -50, -25, 0.5, 50, -25, 0.5, -50, 25, 0.5, -50, -25, -0.5, 50, 25, -0.5, 50, -25, -0.5, -50, 25, -0.5, 50, 25, -0.5, -50, -25, -0.5, -50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_anfqs"]
+albedo_color = Color(0.152941, 0.627451, 0.282353, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eyntf"]
+material = SubResource("StandardMaterial3D_anfqs")
+size = Vector3(50, 1, 100)
+
+[sub_resource type="Environment" id="Environment_s4pfm"]
+background_mode = 1
+background_color = Color(0.764706, 1, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_i0oln"]
+radius = 2.0
+height = 4.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hi7vr"]
+radius = 2.0
+
+[node name="Game" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.988905, -0.148552, 0, 0.148552, 0.988905, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_5r8al")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_eyntf")
+skeleton = NodePath("../..")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.860591, 0.509297, 0, -0.509297, 0.860591, 0, 15.888, 39.558)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s4pfm")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("SphereMesh_i0oln")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_hi7vr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.141434, -0.483099, 0.864067, 0.0780374, 0.875566, 0.476755, -0.986867, 0, 0.161535, 22.1344, 26.2386, 0)
+shadow_enabled = true
